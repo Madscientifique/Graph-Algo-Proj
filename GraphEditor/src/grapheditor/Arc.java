@@ -9,7 +9,7 @@ package grapheditor;
  *
  * @author Mad Scientifique
  */
-class Arc {
+public class Arc {
     private double val;
     private Sommet dest;
     private Arc suiv;
@@ -21,7 +21,7 @@ class Arc {
         suiv = s;
     }
     
-    public Arc(int v, Sommet d){
+    public Arc(double v, Sommet d){
         this (v,d,null);
     }
     // ----
@@ -38,8 +38,11 @@ class Arc {
         return suiv;
     }
     
-    public Arc Ajouter(int v, Sommet d){
-        if(suiv != null) {
+    public Arc Ajouter(double v, Sommet d){
+        if(d.Numero()==this.Destination().Numero()){
+            this.val=v;
+            return this;
+        } else if(suiv != null) {
             return suiv.Ajouter(v, d);
         } else {
             suiv= new Arc(v,d);

@@ -35,7 +35,7 @@ public class Sommet {
         return prem;
     }
     
-    public Arc AjouterArc(int v, Sommet d){
+    public Arc AjouterArc(double v, Sommet d){
         if(prem != null) {
             return prem.Ajouter(v, d);
         } else {
@@ -53,6 +53,33 @@ public class Sommet {
              return suiv.Ajouter(n);
         } else {
             suiv = new Sommet(n);
+            return suiv;
+        }
+    }
+    
+    public String ImprimeDestination(){
+        Arc iter;
+        iter = PremierArc();
+        
+        StringBuilder str = new StringBuilder();
+        str.append("S").append(Numero());
+        str.append(": ");
+        
+        while(iter != null){
+            str.append("->");
+            str.append("S").append(iter.Destination().Numero()).append("(").append(iter.Valeur()).append(")");
+            str.append(", ");
+            iter = iter.Suivant();
+        }
+        return str.toString();
+    }
+    
+    public Sommet Trouve(int n){
+        if(num == n){
+            return this;
+        } else if(suiv!= null){
+            return suiv.Trouve(n);
+        } else {
             return suiv;
         }
     }

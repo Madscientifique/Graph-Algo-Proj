@@ -14,11 +14,17 @@ public class Graphe {
     int[] fs;
     int[] aps;
     int[][] adj;
+    int nbSommet;
     
     
     // ctors
     public Graphe(Sommet p){
         prem = p;
+        if(p!=null){
+            nbSommet=1;
+        } else {
+            nbSommet=0;
+        }
     }
     
     public Graphe(){
@@ -26,12 +32,47 @@ public class Graphe {
     }
     // ----
     
+    void Graphe2Fs(){
+        fs= new int[(nbSommet*nbSommet)];
+        fs[0]=nbSommet;
+        int iter=1;
+        Sommet s = prem;
+        while(s!=null){
+            Arc a = s.PremierArc();
+            while(a!=null){
+                fs[iter]=a.Destination().Numero();
+                iter++;
+                a=a.Suivant();
+            }
+            fs[iter]=0;
+            iter++;
+            s=s.Suivant();
+        }
+    }
+    
+    public int nombreSommet(){
+        return nbSommet;
+    }
     
     public Sommet AjouterSommet(int n){
         if(prem != null){
+            nbSommet++;
             return prem.Ajouter(n);
         } else {
             prem = new Sommet(n);
+            nbSommet++;
+            return prem;
+        }
+    }
+    
+    public Sommet PremierSommet(){
+        return prem;        
+    }
+    
+    public Sommet TrouveSommet(int n){
+        if(prem!= null){
+            return prem.Trouve(n);
+        } else {
             return prem;
         }
     }
